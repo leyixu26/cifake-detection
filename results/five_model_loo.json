@@ -1,0 +1,126 @@
+{
+  "purpose": "Empirical justification for excluding the frequency detector from the four-model ensemble pool reported in team_ensemble_report.json. Computed by averaging probability scores over the five spatial / spectral models on test and on the sd-turbo OOD set, then leave-one-out.",
+  "n_models": 5,
+  "models": [
+    "cnn_baseline_yin",
+    "resnet18_nathan",
+    "vit_small_alex",
+    "clip_mlp_vit_b32_laion",
+    "freq_detector"
+  ],
+  "reproduce_with": "Load each models' test_scores.npz and ood_sdturbo_scores.npz (persisted by scripts/evaluate.py with save_scores=True), check y_true alignment, average y_score across the kept subset, score with sklearn.metrics.roc_auc_score.",
+  "splits": {
+    "test": {
+      "n": 20000,
+      "all5_ensemble_auroc": 0.998995,
+      "leave_one_out": {
+        "cnn_baseline_yin": {
+          "auroc_without": 0.998877,
+          "contribution_pp": 0.0118,
+          "kept_models": [
+            "resnet18_nathan",
+            "vit_small_alex",
+            "clip_mlp_vit_b32_laion",
+            "freq_detector"
+          ]
+        },
+        "resnet18_nathan": {
+          "auroc_without": 0.998733,
+          "contribution_pp": 0.0262,
+          "kept_models": [
+            "cnn_baseline_yin",
+            "vit_small_alex",
+            "clip_mlp_vit_b32_laion",
+            "freq_detector"
+          ]
+        },
+        "vit_small_alex": {
+          "auroc_without": 0.998357,
+          "contribution_pp": 0.0638,
+          "kept_models": [
+            "cnn_baseline_yin",
+            "resnet18_nathan",
+            "clip_mlp_vit_b32_laion",
+            "freq_detector"
+          ]
+        },
+        "clip_mlp_vit_b32_laion": {
+          "auroc_without": 0.998609,
+          "contribution_pp": 0.0386,
+          "kept_models": [
+            "cnn_baseline_yin",
+            "resnet18_nathan",
+            "vit_small_alex",
+            "freq_detector"
+          ]
+        },
+        "freq_detector": {
+          "auroc_without": 0.999384,
+          "contribution_pp": -0.0389,
+          "kept_models": [
+            "cnn_baseline_yin",
+            "resnet18_nathan",
+            "vit_small_alex",
+            "clip_mlp_vit_b32_laion"
+          ]
+        }
+      }
+    },
+    "ood_sdturbo": {
+      "n": 2000,
+      "all5_ensemble_auroc": 0.944918,
+      "leave_one_out": {
+        "cnn_baseline_yin": {
+          "auroc_without": 0.939018,
+          "contribution_pp": 0.59,
+          "kept_models": [
+            "resnet18_nathan",
+            "vit_small_alex",
+            "clip_mlp_vit_b32_laion",
+            "freq_detector"
+          ]
+        },
+        "resnet18_nathan": {
+          "auroc_without": 0.941186,
+          "contribution_pp": 0.3732,
+          "kept_models": [
+            "cnn_baseline_yin",
+            "vit_small_alex",
+            "clip_mlp_vit_b32_laion",
+            "freq_detector"
+          ]
+        },
+        "vit_small_alex": {
+          "auroc_without": 0.935408,
+          "contribution_pp": 0.951,
+          "kept_models": [
+            "cnn_baseline_yin",
+            "resnet18_nathan",
+            "clip_mlp_vit_b32_laion",
+            "freq_detector"
+          ]
+        },
+        "clip_mlp_vit_b32_laion": {
+          "auroc_without": 0.933622,
+          "contribution_pp": 1.1296,
+          "kept_models": [
+            "cnn_baseline_yin",
+            "resnet18_nathan",
+            "vit_small_alex",
+            "freq_detector"
+          ]
+        },
+        "freq_detector": {
+          "auroc_without": 0.965461,
+          "contribution_pp": -2.0543,
+          "kept_models": [
+            "cnn_baseline_yin",
+            "resnet18_nathan",
+            "vit_small_alex",
+            "clip_mlp_vit_b32_laion"
+          ]
+        }
+      }
+    }
+  }
+}
