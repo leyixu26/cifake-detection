@@ -18,8 +18,11 @@ __pycache__/
 *.log
 results/_logs/
 
-# Data — acquire separately (see data/README.md)
+# Data — acquire separately (see data/README.md). Match both real
+# directories AND symlinks (setup_data.sh creates a symlink by default).
+data/cifake
 data/cifake/
+data/archive
 data/archive/
 
 # Caches that are regenerable from code

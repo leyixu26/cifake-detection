@@ -4,10 +4,10 @@ Reads only from `results/per_model/*` and `results/team_ensemble_report.json`,
 so it works as long as those are populated by `scripts/evaluate.py` and
 `scripts/run_team_ensemble.py`.
 
-Produces:
-    fig_clean_vs_ood.png        all models side-by-side on test + OOD AUROC
-    fig_robust_curves.png       per-perturbation AUROC curves (4 panels: jpeg, blur, noise, rescale)
-    fig_ensemble.png            best pair / best triple / all-ensemble AUROC + leave-one-out
+Produces (overwrites the curated headline figures in place):
+    01_clean_vs_ood.png         all models side-by-side on test + OOD AUROC
+    02_robustness_curves.png    per-perturbation AUROC curves (4 panels: jpeg, blur, noise, rescale)
+    03_team_ensemble.png        best pair / best triple / all-ensemble AUROC + leave-one-out
 """
 from __future__ import annotations
 import json
@@ -82,9 +82,9 @@ def fig_clean_vs_ood():
     ax.set_ylabel("AUROC"); ax.set_ylim(0.45, 1.02); ax.grid(alpha=0.3, axis="y")
     ax.set_title("All 5 models — clean test vs cross-generator OOD AUROC")
     ax.legend(loc="lower right")
-    fig.tight_layout(); fig.savefig(FIG / "fig_clean_vs_ood.png", dpi=130)
+    fig.tight_layout(); fig.savefig(FIG / "01_clean_vs_ood.png", dpi=130)
     plt.close(fig)
-    print(f"  wrote {FIG/'fig_clean_vs_ood.png'}")
+    print(f"  wrote {FIG/'01_clean_vs_ood.png'}")
 
 
 def fig_robust_curves():
@@ -99,9 +99,9 @@ def fig_robust_curves():
         if k == 0: ax[k].set_ylabel("test AUROC")
     ax[-1].legend(loc="lower left", fontsize=7)
     fig.suptitle("Robustness curves — inference-time perturbations on sealed test")
-    fig.tight_layout(); fig.savefig(FIG / "fig_robust_curves.png", dpi=130)
+    fig.tight_layout(); fig.savefig(FIG / "02_robustness_curves.png", dpi=130)
     plt.close(fig)
-    print(f"  wrote {FIG/'fig_robust_curves.png'}")
+    print(f"  wrote {FIG/'02_robustness_curves.png'}")
 
 
 def fig_ensemble():
@@ -135,9 +135,9 @@ def fig_ensemble():
         ax.set_ylabel("AUROC"); ax.grid(alpha=0.3, axis="y")
         ax.set_ylim(min(values) - 0.02, 1.0)
     fig.suptitle("Team ensemble across diverse inductive biases")
-    fig.tight_layout(); fig.savefig(FIG / "fig_ensemble.png", dpi=130)
+    fig.tight_layout(); fig.savefig(FIG / "03_team_ensemble.png", dpi=130)
     plt.close(fig)
-    print(f"  wrote {FIG/'fig_ensemble.png'}")
+    print(f"  wrote {FIG/'03_team_ensemble.png'}")
 
 
 def main():

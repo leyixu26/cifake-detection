@@ -10,7 +10,9 @@
 
 - All four spatial models hit ≥ **0.997 clean-test AUROC** on CIFAKE — the in-distribution problem is genuinely easy.
 - **Cross-generator OOD** (against sd-turbo, content + JPEG-quant-table matched to CIFAKE) is where models separate. **Alex's ViT-Small drops least** (−2.6 pp); the frequency detector drops most (−12.8 pp).
+- **Yin's from-scratch CNN OOD-drops less than Nathan's ImageNet ResNet** (−5.5 pp vs −6.4 pp) — a surprising find: under cross-generator stress, a model trained purely on CIFAKE generalises *slightly* better than one warm-started from ImageNet.
 - The best **2-model team ensemble** for cross-generator robustness is **Alex's ViT + Leyi's CLIP probe**: **OOD AUROC 0.9657** (each alone: 0.9732 and 0.9485). Their errors are decorrelated (4.4% complementary errors on test).
+- The best **3-model team ensemble** is **Yin's CNN + Alex's ViT + Leyi's CLIP**: **OOD AUROC 0.9670** (beats the best pair by +0.13 pp). Yin's CNN adds positive cross-generator contribution where Nathan's ResNet adds none.
 - The best **2-model team ensemble for clean test** is **Nathan ResNet-18 + Alex ViT**: **test AUROC 0.9993**.
 - **Frequency detector is dominated** by spatial models on every detection axis; it earns its place as scientific characterisation (an interpretable spectral fingerprint of SD-1.4), not as a competitive classifier.
 
@@ -20,30 +22,34 @@
 
 | # | Model | Owner | Test AUROC | OOD AUROC | OOD drop | Trained params |
 |---|---|---|---:|---:|---:|---:|
-| 1 | from-scratch CNN | Yin    | **0.9974** (reported) | n/a (pending re-eval) | — | 288 k |
+| 1 | from-scratch CNN | Yin    | **0.9974** | **0.9429** | −5.5 pp | 288 k |
 | 2 | ResNet-18 (ImageNet, partial fine-tune) | Nathan | **0.9977** | **0.9341** | −6.4 pp | 11.2 M |
 | 3 | ViT-Small (timm, full fine-tune) | Alex   | **0.9994** | **0.9732** | **−2.6 pp** | 21.7 M |
 | 4 | Frequency detector (mag. SpectrumCNN) | Leyi   | 0.9435 | 0.8150 | −12.8 pp | 222 k |
 | 5 | CLIP probe (LAION ViT-B/32 + MLP head) | Leyi   | **0.9968** | **0.9485** | −4.9 pp | 132 k (probe only; 151 M frozen) |
 
-**Yin's number is from his original `results_CNN_from_scratch.json`.** The re-train under the shared harness is pending (his `best_cnn.pt` is en route).
+All five models were evaluated through the *same* shared harness (`src/eval_harness.evaluate(...)`), same frozen 90/10 split (seed 42), same val-derived Youden-J threshold, same sealed test (n=20 000) and same OOD set (n=2 000). Yin's number reproduces his original `results_CNN_from_scratch.json` to four decimal places.
 
-## Team ensemble (3 models with cached per-sample scores)
+## Team ensemble (4 spatial models with cached per-sample scores)
 
-We average class probabilities across diverse inductive biases:
+We average class probabilities across diverse inductive biases. The frequency detector is deliberately excluded from the team ensemble because earlier sweeps showed it has a negative OOD contribution (the spectral fingerprint is fragile to cross-generator shift).
 
 | Subset | Test AUROC | OOD AUROC |
 |---|---:|---:|
-| Best single (CLIP probe) on OOD | 0.9968 | 0.9485 |
+| Best single (Alex ViT) on test / OOD | 0.9994 | 0.9732 |
 | **Best pair on test: Nathan + Alex** | **0.9993** | 0.9529 |
 | **Best pair on OOD: Alex ViT + CLIP probe** | 0.9988 | **0.9657** |
-| All 3 (Nathan + Alex + CLIP) | 0.9993 | 0.9637 |
+| **Best 3 on OOD: Yin CNN + Alex ViT + CLIP probe** | 0.9994 | **0.9670** |
+| All 4 (Yin + Nathan + Alex + CLIP) | 0.9994 | 0.9655 |
 
 **Leave-one-out OOD contributions** (positive = adding this model improved OOD AUROC):
 
-- Alex ViT: **+1.08 pp** ← biggest contributor on OOD
-- CLIP probe: −0.07 pp (≈ neutral; close to Alex on OOD)
-- Nathan ResNet: −0.20 pp (correlated with Alex)
+- Alex ViT: **+0.70 pp** ← biggest contributor on OOD
+- CLIP probe: **+0.27 pp** ← second contributor
+- Yin CNN: **+0.17 pp** ← cheap, complementary, positive on OOD
+- Nathan ResNet: −0.15 pp (correlated with Alex)
+
+The Yin + Alex + CLIP triple is the *empirical* best subset on cross-generator OOD: it edges out the Alex + CLIP pair by +0.13 pp while matching the all-4 ensemble on test (0.9994).
 
 ## Methodology highlights (controlled comparison)
 

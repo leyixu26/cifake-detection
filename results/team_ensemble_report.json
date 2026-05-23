@@ -1,5 +1,6 @@
 {
   "models": [
+    "cnn_baseline_yin",
     "resnet18_nathan",
     "vit_small_alex",
     "clip_mlp_vit_b32_laion"
@@ -9,31 +10,42 @@
       "split": "test",
       "n": 20000,
       "per_model_auroc": {
+        "cnn_baseline_yin": 0.997412815,
         "resnet18_nathan": 0.9977087200000001,
         "vit_small_alex": 0.9993937900000001,
         "clip_mlp_vit_b32_laion": 0.9968060000000001
       },
       "pair_ensembles": {
+        "cnn_baseline_yin__+__resnet18_nathan": 0.9986315100000001,
+        "cnn_baseline_yin__+__vit_small_alex": 0.9992299699999999,
+        "cnn_baseline_yin__+__clip_mlp_vit_b32_laion": 0.99865113,
         "resnet18_nathan__+__vit_small_alex": 0.9993148800000001,
         "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.99869427,
         "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.99925694
       },
       "triple_ensembles": {
+        "cnn_baseline_yin__+__resnet18_nathan__+__vit_small_alex": 0.9993050099999999,
+        "cnn_baseline_yin__+__resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.99903162,
+        "cnn_baseline_yin__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.99935276,
         "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.99933713
       },
-      "all_ensemble_auroc": 0.99933713,
+      "all_ensemble_auroc": 0.9993837999999999,
       "leave_one_out": {
+        "cnn_baseline_yin": {
+          "auroc_without": 0.99933713,
+          "contribution_pp": 0.004666999999991539
+        },
         "resnet18_nathan": {
-          "auroc_without": 0.99925694,
-          "contribution_pp": 0.008019000000003551
+          "auroc_without": 0.99935276,
+          "contribution_pp": 0.0031039999999982193
         },
         "vit_small_alex": {
-          "auroc_without": 0.99869427,
-          "contribution_pp": 0.06428600000000229
+          "auroc_without": 0.99903162,
+          "contribution_pp": 0.03521799999999242
         },
         "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.9993148800000001,
-          "contribution_pp": 0.0022249999999890413
+          "auroc_without": 0.9993050099999999,
+          "contribution_pp": 0.007878999999999525
         }
       },
       "best_pair": [
@@ -41,39 +53,50 @@
         0.9993148800000001
       ],
       "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.99933713
+        "cnn_baseline_yin__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
+        0.99935276
       ]
     },
     "ood_sdturbo": {
       "split": "ood:sdturbo",
       "n": 2000,
       "per_model_auroc": {
+        "cnn_baseline_yin": 0.942886,
         "resnet18_nathan": 0.9341189999999999,
         "vit_small_alex": 0.973201,
         "clip_mlp_vit_b32_laion": 0.948454
       },
       "pair_ensembles": {
+        "cnn_baseline_yin__+__resnet18_nathan": 0.949092,
+        "cnn_baseline_yin__+__vit_small_alex": 0.964845,
+        "cnn_baseline_yin__+__clip_mlp_vit_b32_laion": 0.9581239999999999,
         "resnet18_nathan__+__vit_small_alex": 0.9643700000000001,
         "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.9529439999999999,
         "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9656920000000001
       },
       "triple_ensembles": {
+        "cnn_baseline_yin__+__resnet18_nathan__+__vit_small_alex": 0.9627640000000001,
+        "cnn_baseline_yin__+__resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.958477,
+        "cnn_baseline_yin__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9669559999999999,
         "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.963717
       },
-      "all_ensemble_auroc": 0.963717,
+      "all_ensemble_auroc": 0.9654609999999999,
       "leave_one_out": {
+        "cnn_baseline_yin": {
+          "auroc_without": 0.963717,
+          "contribution_pp": 0.17439999999998568
+        },
         "resnet18_nathan": {
-          "auroc_without": 0.9656920000000001,
-          "contribution_pp": -0.197500000000006
+          "auroc_without": 0.9669559999999999,
+          "contribution_pp": -0.1495000000000024
         },
         "vit_small_alex": {
-          "auroc_without": 0.9529439999999999,
-          "contribution_pp": 1.0773000000000144
+          "auroc_without": 0.958477,
+          "contribution_pp": 0.6983999999999879
         },
         "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.9643700000000001,
-          "contribution_pp": -0.06530000000000147
+          "auroc_without": 0.9627640000000001,
+          "contribution_pp": 0.26969999999998384
         }
       },
       "best_pair": [
@@ -81,768 +104,8 @@
         0.9656920000000001
       ],
       "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.963717
-      ]
-    },
-    "robust_jpeg_90": {
-      "split": "robust:jpeg@90",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.99749477,
-        "vit_small_alex": 0.9992909299999999,
-        "clip_mlp_vit_b32_laion": 0.996662725
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.99922833,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.99862505,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.99916924
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.99926467
-      },
-      "all_ensemble_auroc": 0.99926467,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.99916924,
-          "contribution_pp": 0.009543000000000745
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.99862505,
-          "contribution_pp": 0.06396199999999519
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.99922833,
-          "contribution_pp": 0.0036339999999968065
-        }
-      },
-      "best_pair": [
-        "resnet18_nathan__+__vit_small_alex",
-        0.99922833
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.99926467
-      ]
-    },
-    "robust_jpeg_75": {
-      "split": "robust:jpeg@75",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.9976249450000001,
-        "vit_small_alex": 0.99935597,
-        "clip_mlp_vit_b32_laion": 0.99680407
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.999284605,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.99870062,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9992350700000001
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.99932359
-      },
-      "all_ensemble_auroc": 0.99932359,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.9992350700000001,
-          "contribution_pp": 0.008851999999992533
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.99870062,
-          "contribution_pp": 0.06229700000000005
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.999284605,
-          "contribution_pp": 0.0038984999999991388
-        }
-      },
-      "best_pair": [
-        "resnet18_nathan__+__vit_small_alex",
-        0.999284605
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.99932359
-      ]
-    },
-    "robust_jpeg_60": {
-      "split": "robust:jpeg@60",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.9925115499999999,
-        "vit_small_alex": 0.9987414600000001,
-        "clip_mlp_vit_b32_laion": 0.99500941
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.99806386,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.99693602,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9987625099999999
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9986250600000001
-      },
-      "all_ensemble_auroc": 0.9986250600000001,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.9987625099999999,
-          "contribution_pp": -0.01374499999998724
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.99693602,
-          "contribution_pp": 0.16890400000000305
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.99806386,
-          "contribution_pp": 0.056120000000003945
-        }
-      },
-      "best_pair": [
-        "vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.9987625099999999
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.9986250600000001
-      ]
-    },
-    "robust_jpeg_40": {
-      "split": "robust:jpeg@40",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.987787775,
-        "vit_small_alex": 0.9948511350000001,
-        "clip_mlp_vit_b32_laion": 0.97996293
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.99454189,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.98913347,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9917081199999999
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.99308482
-      },
-      "all_ensemble_auroc": 0.99308482,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.9917081199999999,
-          "contribution_pp": 0.13767000000001195
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.98913347,
-          "contribution_pp": 0.395135000000002
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.99454189,
-          "contribution_pp": -0.14570700000000603
-        }
-      },
-      "best_pair": [
-        "resnet18_nathan__+__vit_small_alex",
-        0.99454189
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.99308482
-      ]
-    },
-    "robust_jpeg_25": {
-      "split": "robust:jpeg@25",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.9735080300000002,
-        "vit_small_alex": 0.99096591,
-        "clip_mlp_vit_b32_laion": 0.9564047699999999
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.98868131,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.9760670099999998,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9837016500000001
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9858371800000001
-      },
-      "all_ensemble_auroc": 0.9858371800000001,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.9837016500000001,
-          "contribution_pp": 0.21355299999999966
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.9760670099999998,
-          "contribution_pp": 0.9770170000000244
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.98868131,
-          "contribution_pp": -0.2844129999999945
-        }
-      },
-      "best_pair": [
-        "resnet18_nathan__+__vit_small_alex",
-        0.98868131
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.9858371800000001
-      ]
-    },
-    "robust_jpeg_10": {
-      "split": "robust:jpeg@10",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.8633141299999999,
-        "vit_small_alex": 0.938289465,
-        "clip_mlp_vit_b32_laion": 0.8181676249999998
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.9159909600000001,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.87809023,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.909817905
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9142972599999999
-      },
-      "all_ensemble_auroc": 0.9142972599999999,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.909817905,
-          "contribution_pp": 0.44793549999998516
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.87809023,
-          "contribution_pp": 3.620702999999992
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.9159909600000001,
-          "contribution_pp": -0.16937000000002422
-        }
-      },
-      "best_pair": [
-        "resnet18_nathan__+__vit_small_alex",
-        0.9159909600000001
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.9142972599999999
-      ]
-    },
-    "robust_blur_0.3": {
-      "split": "robust:blur@0.3",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.997755185,
-        "vit_small_alex": 0.99934485,
-        "clip_mlp_vit_b32_laion": 0.996854065
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.9992895100000001,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.9987360000000001,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.999259295
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.99933224
-      },
-      "all_ensemble_auroc": 0.99933224,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.999259295,
-          "contribution_pp": 0.007294499999999093
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.9987360000000001,
-          "contribution_pp": 0.05962399999999146
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.9992895100000001,
-          "contribution_pp": 0.004272999999987981
-        }
-      },
-      "best_pair": [
-        "resnet18_nathan__+__vit_small_alex",
-        0.9992895100000001
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.99933224
-      ]
-    },
-    "robust_blur_0.5": {
-      "split": "robust:blur@0.5",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.99724718,
-        "vit_small_alex": 0.99766686,
-        "clip_mlp_vit_b32_laion": 0.99332172
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.99854755,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.99744304,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9972101900000001
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9982249500000001
-      },
-      "all_ensemble_auroc": 0.9982249500000001,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.9972101900000001,
-          "contribution_pp": 0.10147600000000034
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.99744304,
-          "contribution_pp": 0.07819100000001633
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.99854755,
-          "contribution_pp": -0.03225999999998397
-        }
-      },
-      "best_pair": [
-        "resnet18_nathan__+__vit_small_alex",
-        0.99854755
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.9982249500000001
-      ]
-    },
-    "robust_blur_0.8": {
-      "split": "robust:blur@0.8",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.913859525,
-        "vit_small_alex": 0.9014094,
-        "clip_mlp_vit_b32_laion": 0.949490055
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.91029759,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.9518190899999999,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.95177281
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9529360800000001
-      },
-      "all_ensemble_auroc": 0.9529360800000001,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.95177281,
-          "contribution_pp": 0.11632700000000495
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.9518190899999999,
-          "contribution_pp": 0.11169900000002064
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.91029759,
-          "contribution_pp": 4.263849000000008
-        }
-      },
-      "best_pair": [
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion",
-        0.9518190899999999
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.9529360800000001
-      ]
-    },
-    "robust_blur_1.0": {
-      "split": "robust:blur@1.0",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.8125669550000001,
-        "vit_small_alex": 0.832890955,
-        "clip_mlp_vit_b32_laion": 0.902641295
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.8303020300000001,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.9021321,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.90462067
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.90275656
-      },
-      "all_ensemble_auroc": 0.90275656,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.90462067,
-          "contribution_pp": -0.18641099999999744
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.9021321,
-          "contribution_pp": 0.062446000000004886
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.8303020300000001,
-          "contribution_pp": 7.245452999999991
-        }
-      },
-      "best_pair": [
-        "vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.90462067
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.90275656
-      ]
-    },
-    "robust_blur_1.5": {
-      "split": "robust:blur@1.5",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.76275765,
-        "vit_small_alex": 0.768277755,
-        "clip_mlp_vit_b32_laion": 0.8372997150000001
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.7763844799999999,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.834559755,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.8387408999999999
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.83395604
-      },
-      "all_ensemble_auroc": 0.83395604,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.8387408999999999,
-          "contribution_pp": -0.4784859999999891
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.834559755,
-          "contribution_pp": -0.060371500000000466
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.7763844799999999,
-          "contribution_pp": 5.757156000000007
-        }
-      },
-      "best_pair": [
-        "vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.8387408999999999
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.83395604
-      ]
-    },
-    "robust_noise_2": {
-      "split": "robust:noise@2",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.99739836,
-        "vit_small_alex": 0.99928297,
-        "clip_mlp_vit_b32_laion": 0.9946700099999999
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.9991829300000001,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.9982586599999999,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9989690700000001
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.99916316
-      },
-      "all_ensemble_auroc": 0.99916316,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.9989690700000001,
-          "contribution_pp": 0.01940899999999246
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.9982586599999999,
-          "contribution_pp": 0.09045000000001968
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.9991829300000001,
-          "contribution_pp": -0.0019770000000085552
-        }
-      },
-      "best_pair": [
-        "resnet18_nathan__+__vit_small_alex",
-        0.9991829300000001
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.99916316
-      ]
-    },
-    "robust_noise_4": {
-      "split": "robust:noise@4",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.9957637700000002,
-        "vit_small_alex": 0.999117725,
-        "clip_mlp_vit_b32_laion": 0.9910512199999999
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.99888049,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.9972525900000001,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9987007900000001
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.99892223
-      },
-      "all_ensemble_auroc": 0.99892223,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.9987007900000001,
-          "contribution_pp": 0.022143999999990616
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.9972525900000001,
-          "contribution_pp": 0.16696399999999167
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.99888049,
-          "contribution_pp": 0.004174000000001232
-        }
-      },
-      "best_pair": [
-        "resnet18_nathan__+__vit_small_alex",
-        0.99888049
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.99892223
-      ]
-    },
-    "robust_noise_8": {
-      "split": "robust:noise@8",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.9751954950000001,
-        "vit_small_alex": 0.99826011,
-        "clip_mlp_vit_b32_laion": 0.98295326
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.9952130299999999,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.9879460500000001,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9974371600000002
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9962544699999999
-      },
-      "all_ensemble_auroc": 0.9962544699999999,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.9974371600000002,
-          "contribution_pp": -0.11826900000002638
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.9879460500000001,
-          "contribution_pp": 0.8308419999999761
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.9952130299999999,
-          "contribution_pp": 0.10414399999999491
-        }
-      },
-      "best_pair": [
-        "vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.9974371600000002
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.9962544699999999
-      ]
-    },
-    "robust_noise_16": {
-      "split": "robust:noise@16",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.8104066250000002,
-        "vit_small_alex": 0.99264595,
-        "clip_mlp_vit_b32_laion": 0.935759335
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.9489339400000001,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.90239033,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9836433200000001
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.9603251
-      },
-      "all_ensemble_auroc": 0.9603251,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.9836433200000001,
-          "contribution_pp": -2.3318220000000056
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.90239033,
-          "contribution_pp": 5.793477000000003
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.9489339400000001,
-          "contribution_pp": 1.1391159999999956
-        }
-      },
-      "best_pair": [
-        "vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.9836433200000001
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.9603251
-      ]
-    },
-    "robust_noise_32": {
-      "split": "robust:noise@32",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.5678312400000001,
-        "vit_small_alex": 0.93054864,
-        "clip_mlp_vit_b32_laion": 0.6746293649999999
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.8467423700000001,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.65672724,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.8313791100000001
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.79724289
-      },
-      "all_ensemble_auroc": 0.79724289,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.8313791100000001,
-          "contribution_pp": -3.413622000000005
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.65672724,
-          "contribution_pp": 14.051565
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.8467423700000001,
-          "contribution_pp": -4.9499480000000045
-        }
-      },
-      "best_pair": [
-        "resnet18_nathan__+__vit_small_alex",
-        0.8467423700000001
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.79724289
-      ]
-    },
-    "robust_rescale_24": {
-      "split": "robust:rescale@24",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.98740391,
-        "vit_small_alex": 0.98947613,
-        "clip_mlp_vit_b32_laion": 0.987435445
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.99235063,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.9908142499999999,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.99140952
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.99271226
-      },
-      "all_ensemble_auroc": 0.99271226,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.99140952,
-          "contribution_pp": 0.1302739999999969
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.9908142499999999,
-          "contribution_pp": 0.18980100000001165
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.99235063,
-          "contribution_pp": 0.03616300000000017
-        }
-      },
-      "best_pair": [
-        "resnet18_nathan__+__vit_small_alex",
-        0.99235063
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.99271226
-      ]
-    },
-    "robust_rescale_16": {
-      "split": "robust:rescale@16",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.88062935,
-        "vit_small_alex": 0.8826545899999998,
-        "clip_mlp_vit_b32_laion": 0.910941095
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.8869021000000001,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.91397696,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.91676404
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.91787468
-      },
-      "all_ensemble_auroc": 0.91787468,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.91676404,
-          "contribution_pp": 0.11106400000000516
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.91397696,
-          "contribution_pp": 0.38977200000001044
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.8869021000000001,
-          "contribution_pp": 3.0972579999999916
-        }
-      },
-      "best_pair": [
-        "vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.91676404
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.91787468
-      ]
-    },
-    "robust_rescale_12": {
-      "split": "robust:rescale@12",
-      "n": 20000,
-      "per_model_auroc": {
-        "resnet18_nathan": 0.774542235,
-        "vit_small_alex": 0.80114656,
-        "clip_mlp_vit_b32_laion": 0.84270268
-      },
-      "pair_ensembles": {
-        "resnet18_nathan__+__vit_small_alex": 0.7924599200000001,
-        "resnet18_nathan__+__clip_mlp_vit_b32_laion": 0.84177208,
-        "vit_small_alex__+__clip_mlp_vit_b32_laion": 0.8487482799999999
-      },
-      "triple_ensembles": {
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion": 0.8436528
-      },
-      "all_ensemble_auroc": 0.8436528,
-      "leave_one_out": {
-        "resnet18_nathan": {
-          "auroc_without": 0.8487482799999999,
-          "contribution_pp": -0.509547999999993
-        },
-        "vit_small_alex": {
-          "auroc_without": 0.84177208,
-          "contribution_pp": 0.1880719999999947
-        },
-        "clip_mlp_vit_b32_laion": {
-          "auroc_without": 0.7924599200000001,
-          "contribution_pp": 5.1192879999999885
-        }
-      },
-      "best_pair": [
-        "vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.8487482799999999
-      ],
-      "best_triple": [
-        "resnet18_nathan__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
-        0.8436528
+        "cnn_baseline_yin__+__vit_small_alex__+__clip_mlp_vit_b32_laion",
+        0.9669559999999999
       ]
     }
   }
