@@ -16,6 +16,7 @@ from PIL import Image
 from scipy.ndimage import gaussian_filter
 
 _RNG = np.random.RandomState(1234)  # fixed so robustness eval is reproducible
+TARGET_SIZE = 32                    # canonical CIFAKE side length
 
 
 def _to_u8(img):
@@ -50,9 +51,17 @@ def additive_noise(sigma_255: float):
 
 
 def rescale(small: int):
+    """Downscale to (small, small) then re-upscale to TARGET_SIZE×TARGET_SIZE.
+
+    The round-trip discards spatial detail above the Nyquist of the
+    intermediate resolution while preserving the final 32×32 grid that every
+    model in the repo expects. Used to probe sensitivity to resolution loss
+    without changing the input shape.
+    """
     def f(img):
         im = Image.fromarray(_to_u8(img))
-        im = im.resize((small, small), Image.BICUBIC).resize((32, 32), Image.BICUBIC)
+        im = im.resize((small, small), Image.BICUBIC) \
+               .resize((TARGET_SIZE, TARGET_SIZE), Image.BICUBIC)
         return np.asarray(im.convert("RGB"), np.float32) / 255.0
     return f
 

@@ -13,7 +13,7 @@ from __future__ import annotations
 import glob, json, os, sys
 import numpy as np
 from itertools import combinations
-from sklearn.metrics import roc_auc_score, accuracy_score
+from sklearn.metrics import roc_auc_score
 
 import pathlib as _pl
 _REPO_ROOT = _pl.Path(__file__).resolve().parent.parent

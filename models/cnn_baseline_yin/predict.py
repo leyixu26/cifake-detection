@@ -88,6 +88,11 @@ def _load_model():
     global _MODEL, _DEV
     if _MODEL is not None:
         return _MODEL, _DEV
+    if not os.path.exists(CKPT):
+        raise FileNotFoundError(
+            f"Yin's CNN checkpoint not found at {CKPT}. "
+            f"See models/cnn_baseline_yin/README.md for how to obtain it."
+        )
     _DEV = _device()
     model = SimpleCNN(num_classes=2)
     ckpt = torch.load(CKPT, map_location=_DEV)
@@ -101,6 +106,12 @@ def _load_model():
 
 @torch.no_grad()
 def predict_fake_probability(paths: List[str]) -> np.ndarray:
+    """Return P(FAKE) ∈ [0, 1] for the given image paths, shape (N,) float32.
+
+    See `models/README.md` for the harness-wide contract this satisfies.
+    The model is loaded lazily on the first call and cached in a module-level
+    global; subsequent calls reuse the loaded weights.
+    """
     model, dev = _load_model()
     ds = _PathsDataset(paths)
     dl = DataLoader(ds, batch_size=BATCH, shuffle=False, num_workers=0)

@@ -58,6 +58,11 @@ def _load_model():
     global _MODEL, _DEV
     if _MODEL is not None:
         return _MODEL, _DEV
+    if not os.path.exists(CKPT):
+        raise FileNotFoundError(
+            f"Nathan's ResNet-18 checkpoint not found at {CKPT}. "
+            f"Pull it via `git lfs pull` (it is tracked by Git LFS)."
+        )
     _DEV = _device()
     # Build the same architecture Nathan trained (ResNet-18 ImageNet, fc -> 2)
     model = models.resnet18(weights=None)   # no need to download ImageNet weights again

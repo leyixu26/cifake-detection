@@ -55,7 +55,76 @@ def _auc(model_dir: str, split_key: str):
 
 
 # --------------------------------------------------------------------------- #
-def fig_clean_vs_ood():
+def _render_clean_vs_ood(have, mode, out_name, title):
+    """Render the headline figure in one of three modes.
+
+    mode:
+        "full"          → both in-dist + OOD bars, with Δ overlay (writeup)
+        "in_dist_only"  → only the left bars rendered, same canvas/labels
+                          (used on slides 4-7 to avoid spoiling the slide-8 reveal)
+        "ood_reveal"    → both bars rendered + Δ overlay, but OOD bars in full
+                          colour to make the reveal punchy (used on slide 8)
+    """
+    names, colors, ts, os_ = zip(*[(n, c, t, o) for (n, c, t, o) in have])
+    x = np.arange(len(names)); w = 0.4
+    fig, ax = plt.subplots(figsize=(11, 4.8))
+
+    if mode == "in_dist_only":
+        # Center the test bars on each x tick; keep the same y-axis as
+        # the full version so the next slide's reveal is visually congruent.
+        ax.bar(x, ts, w, color=colors, edgecolor="black", lw=0.5,
+               label="in-dist test (CIFAKE)")
+        for i, t in enumerate(ts):
+            ax.text(i, t + 0.005, f"{t:.3f}", ha="center", fontsize=8)
+        ax.set_title(f"{title} — clean in-distribution test only")
+        ax.legend(loc="lower right")
+    elif mode == "ood_reveal":
+        # Plot test bars in muted form to anchor the comparison, then the
+        # OOD bars in full colour with Δ annotation — this is the slide-8
+        # transition where Leyi says "...and here's what happens cross-gen".
+        ax.bar(x - w/2, ts, w, color=colors, edgecolor="black", lw=0.5,
+               alpha=0.35, label="in-dist test (CIFAKE)")
+        ax.bar(x + w/2, os_, w, color=colors, edgecolor="black", lw=0.5,
+               hatch="//", label="cross-gen OOD (sd-turbo) — the reveal")
+        for i, (t, o) in enumerate(zip(ts, os_)):
+            ax.text(i - w/2, t + 0.005, f"{t:.3f}", ha="center", fontsize=8,
+                    color="gray")
+            ax.text(i + w/2, o + 0.005, f"{o:.3f}", ha="center", fontsize=9,
+                    color="black", fontweight="bold")
+            ax.text(i, 0.46, f"Δ={(t-o)*100:+.1f}", ha="center",
+                    fontsize=9, color="firebrick", fontweight="bold")
+        ax.set_title(f"{title} — cross-generator OOD reveal")
+        ax.legend(loc="lower right")
+    else:  # "full"
+        ax.bar(x - w/2, ts, w, color=colors, edgecolor="black", lw=0.5,
+               label="in-dist test (CIFAKE)")
+        ax.bar(x + w/2, os_, w, color=colors, edgecolor="black", lw=0.5,
+               alpha=0.55, hatch="//", label="cross-gen OOD (sd-turbo)")
+        for i, (t, o) in enumerate(zip(ts, os_)):
+            ax.text(i - w/2, t + 0.005, f"{t:.3f}", ha="center", fontsize=8)
+            ax.text(i + w/2, o + 0.005, f"{o:.3f}", ha="center", fontsize=8)
+            ax.text(i, 0.46, f"Δ={(t-o)*100:+.1f}", ha="center",
+                    fontsize=8, color="firebrick")
+        ax.set_title(title)
+        ax.legend(loc="lower right")
+
+    ax.set_xticks(x); ax.set_xticklabels(names, rotation=18, ha="right", fontsize=9)
+    ax.set_ylabel("AUROC"); ax.set_ylim(0.45, 1.02); ax.grid(alpha=0.3, axis="y")
+    fig.tight_layout(); fig.savefig(FIG / out_name, dpi=130)
+    plt.close(fig)
+    print(f"  wrote {FIG/out_name}")
+
+
+def fig_clean_vs_ood(presentation_mode: bool = False):
+    """Headline figure: every model's in-dist + cross-generator OOD AUROC.
+
+    Default: emits a single composite `01_clean_vs_ood.png` (used in the
+    writeup and as the slide-8 fallback).
+
+    `presentation_mode=True` additionally emits `01a_in_dist_only.png` (for
+    slides 4-7 — does not spoil the slide-8 OOD reveal) and
+    `01b_ood_reveal.png` (for the slide-8 transition).
+    """
     have = []
     for name, mdir, color in MODELS:
         t = _auc(mdir, "test"); o = _auc(mdir, "ood_sdturbo")
@@ -66,25 +135,11 @@ def fig_clean_vs_ood():
     if not have:
         print("  no models with both test and ood; skipping fig_clean_vs_ood")
         return
-    names, colors, ts, os_ = zip(*[(n, c, t, o) for (n, c, t, o) in have])
-    x = np.arange(len(names)); w = 0.4
-    fig, ax = plt.subplots(figsize=(11, 4.8))
-    ax.bar(x - w/2, ts, w, color=colors, edgecolor="black", lw=0.5,
-           label="in-dist test (CIFAKE)")
-    ax.bar(x + w/2, os_, w, color=colors, edgecolor="black", lw=0.5,
-           alpha=0.55, hatch="//", label="cross-gen OOD (sd-turbo)")
-    for i, (t, o) in enumerate(zip(ts, os_)):
-        ax.text(i - w/2, t + 0.005, f"{t:.3f}", ha="center", fontsize=8)
-        ax.text(i + w/2, o + 0.005, f"{o:.3f}", ha="center", fontsize=8)
-        ax.text(i, 0.46, f"Δ={(t-o)*100:+.1f}", ha="center",
-                fontsize=8, color="firebrick")
-    ax.set_xticks(x); ax.set_xticklabels(names, rotation=18, ha="right", fontsize=9)
-    ax.set_ylabel("AUROC"); ax.set_ylim(0.45, 1.02); ax.grid(alpha=0.3, axis="y")
-    ax.set_title("All 5 models — clean test vs cross-generator OOD AUROC")
-    ax.legend(loc="lower right")
-    fig.tight_layout(); fig.savefig(FIG / "01_clean_vs_ood.png", dpi=130)
-    plt.close(fig)
-    print(f"  wrote {FIG/'01_clean_vs_ood.png'}")
+    title = "All 5 models — clean test vs cross-generator OOD AUROC"
+    _render_clean_vs_ood(have, "full", "01_clean_vs_ood.png", title)
+    if presentation_mode:
+        _render_clean_vs_ood(have, "in_dist_only", "01a_in_dist_only.png", title)
+        _render_clean_vs_ood(have, "ood_reveal",   "01b_ood_reveal.png",   title)
 
 
 def fig_robust_curves():
@@ -141,9 +196,20 @@ def fig_ensemble():
 
 
 def main():
-    print("=== fig_clean_vs_ood ==="); fig_clean_vs_ood()
-    print("=== fig_robust_curves ==="); fig_robust_curves()
-    print("=== fig_ensemble ==="); fig_ensemble()
+    import argparse
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--presentation-mode", action="store_true",
+                    help="Additionally emit the split-reveal variants of "
+                         "figure 01 used in the slide deck "
+                         "(01a_in_dist_only.png, 01b_ood_reveal.png).")
+    args = ap.parse_args()
+
+    print("=== fig_clean_vs_ood ===")
+    fig_clean_vs_ood(presentation_mode=args.presentation_mode)
+    print("=== fig_robust_curves ===")
+    fig_robust_curves()
+    print("=== fig_ensemble ===")
+    fig_ensemble()
     print(f"\nall figures -> {FIG}")
 
 

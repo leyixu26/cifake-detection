@@ -61,8 +61,8 @@ def _downsample(x: np.ndarray, n: int = 200) -> list:
 
 
 def evaluate(
-    y_true,
-    y_score,
+    y_true: np.ndarray,
+    y_score: np.ndarray,
     model_name: str,
     split: str,
     threshold: float | None = None,

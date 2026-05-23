@@ -95,9 +95,17 @@ def reencode_with_cifake_qtables(ood_root, cifake_root):
 
 
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--ood-root",    default=str(DEFAULT_OOD))
-    ap.add_argument("--cifake-root", default=str(DEFAULT_CIFAKE))
+    ap = argparse.ArgumentParser(
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    ap.add_argument("--ood-root", default=str(DEFAULT_OOD),
+                    help=f"Output directory for the OOD set (default: {DEFAULT_OOD}). "
+                         f"Two subdirs REAL/ and FAKE/ are created here.")
+    ap.add_argument("--cifake-root", default=str(DEFAULT_CIFAKE),
+                    help=f"CIFAKE root with test/REAL/ used to sample the REAL side and "
+                         f"to read the canonical JPEG quantization tables "
+                         f"(default: {DEFAULT_CIFAKE}).")
     ap.add_argument("--n-per-class", type=int, default=100,
                     help="FAKE images per CIFAR-10 class (default 100 = 1000 total)")
     ap.add_argument("--skip-reals", action="store_true", help="don't (re)copy REAL side")

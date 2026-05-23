@@ -60,6 +60,11 @@ def _load_model():
     global _MODEL, _DEV
     if _MODEL is not None:
         return _MODEL, _DEV
+    if not os.path.exists(CKPT):
+        raise FileNotFoundError(
+            f"Alex's ViT-Small checkpoint not found at {CKPT}. "
+            f"Pull it via `git lfs pull` (it is tracked by Git LFS)."
+        )
     _DEV = _device()
     # Same architecture Alex trained: timm vit_small_patch16_224 with 2-class head.
     model = timm.create_model("vit_small_patch16_224", pretrained=False)

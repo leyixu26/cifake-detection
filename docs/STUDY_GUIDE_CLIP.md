@@ -380,10 +380,11 @@ Our four models span a spectrum of inductive-bias breadth:
 
 | Model | Pretraining inductive bias | OOD drop |
 |---|---|---:|
-| Freq detector (handcrafted) | Narrow: spectral artifacts of diffusion specifically | −9.2 pp |
-| Spatial CNN (from scratch) | Narrowest: only what CIFAKE itself teaches | −6.0 pp |
-| (teammates' ResNet / ViT) | Medium: ImageNet object classification (1.3M images) | TBD |
-| CLIP probe | Broadest: 2B image-text web pairs | **−4.8 pp** |
+| Freq detector (handcrafted) | Narrow: spectral artifacts of diffusion specifically | −12.8 pp |
+| Spatial CNN (from scratch, Yin) | Narrowest: only what CIFAKE itself teaches | **−5.5 pp** |
+| ResNet-18 (ImageNet, Nathan) | Medium: ImageNet object classification (1.3M images) | −6.4 pp |
+| ViT-Small (ImageNet, Alex) | Medium: ImageNet object classification, attention-based | **−2.6 pp** |
+| CLIP probe (LAION-2B + MLP) | Broadest: 2B image-text web pairs | −4.8 pp |
 
 The pattern matches the hypothesis: broader prior → smaller OOD drop. The
 result is suggestive but not airtight — a cross-architecture OOD test
@@ -436,7 +437,7 @@ both axes (no OOD regression, contrary to standard guidance).
 | Spatial CNN (my matched 222k) | 0.995 | 0.935 | 222 k |
 | **CLIP final (LAION + MLP)** | **0.997** | **0.949** | **132 k probe only** |
 | CLIP zero-shot (no training) | 0.636 | 0.462 | 0 |
-| Teammate's from-scratch CNN | 0.997 | TBD | 287 k |
+| Yin's from-scratch CNN | 0.9974 | 0.9429 | 288 k |
 
 **Takeaway:** CLIP probe matches the heavily-trained from-scratch CNN on
 clean test (within 0.0006 AUROC) and beats it on OOD — with zero gradient

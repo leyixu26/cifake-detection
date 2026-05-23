@@ -21,10 +21,10 @@ Youden-J on the val split. All scores reproducible from the shared harness.
 
 | | test AUROC | OOD AUROC (sd-turbo) | params trained |
 |---|---:|---:|---:|
-| from-scratch CNN (Yin, baseline) | 0.9974 | — | 287 k |
-| ResNet-18 (Nate, transfer) | TBD | TBD | ~11 M |
-| ViT (Alex) | TBD | TBD | ~5–22 M |
-| frequency probe (Leyi, Model 4) | 0.944 best | 0.815 best | 4 k–222 k |
+| from-scratch CNN (Yin, baseline) | **0.9974** | **0.9429** | 288 k |
+| ResNet-18 (Nathan, ImageNet transfer) | **0.9977** | **0.9341** | 11.2 M |
+| ViT-Small (Alex, ImageNet full FT) | **0.9994** | **0.9732** | 21.7 M |
+| frequency probe (Leyi, Model 4) | 0.9435 | 0.8150 | 222 k |
 | **CLIP probe (Leyi, Model 5)** | **0.9968** | **0.9485** | **132 k (probe only)** |
 
 The CLIP probe matches the from-scratch CNN on clean test (within 0.0006 AUROC)
@@ -97,15 +97,23 @@ The 2-model average:
 | All 3 (Nathan + Alex + CLIP) | 0.9993 | 0.9637 |
 | (legacy) CLIP + my matched spatial CNN | 0.9981 | 0.9570 |
 
-**Recommended team headline ensemble**: **Alex ViT + CLIP probe** (best OOD AUROC 0.9657) for cross-generator deployment, or **Nathan + Alex** (test AUROC 0.9993) for clean in-distribution maximum. The all-3 ensemble lands in between (test 0.9993 / OOD 0.9637).
+**Recommended team headline ensemble**: depends on which axis you optimise.
+- **Best clean test:** Nathan + Alex (test AUROC 0.9993)
+- **Best 2-model OOD:** Alex ViT + CLIP probe (OOD AUROC 0.9657)
+- **Best 3-model OOD:** **Yin CNN + Alex ViT + CLIP probe (OOD AUROC 0.9670)** — beats the best pair by +0.13 pp via Yin's positive leave-one-out contribution
+- **All-4-ensemble** (Yin + Nathan + Alex + CLIP): test 0.9994 / OOD 0.9655
 
-Yin's from-scratch CNN was attempted in the overnight run but training timed out under system contention. His reported metrics (test AUROC 0.9974 from `results_CNN_from_scratch.json`) match the spatial-CNN tier.
+Yin's CNN was fully integrated through the shared harness — his test
+0.9974 reproduces his original `results_CNN_from_scratch.json` to 4
+decimal places, and his cross-generator OOD (newly measured) = 0.9429 — a
+−5.5 pp drop that is *smaller* than Nathan's ImageNet-warm-started ResNet
+(−6.4 pp).
 
-The 2-model ensemble lifts AUROC by **+1.4 pp ID** (0.9947 → 0.9981) and
-**+0.9 pp OOD** (0.9485 → 0.9570) over the best single model. Adding the
-frequency probe makes the ensemble *worse* on both axes — confirmed by
-leave-one-out, which shows dropping freq_A from the 3-model ensemble improves
-it by +1.7 pp ID and +2.25 pp OOD (since "drop freq_A" = the 2-model winner).
+Adding the frequency detector to the ensemble pool **hurts** rather than
+helps (negative leave-one-out contribution on both test and OOD —
+confirmed in `results/team_ensemble_report.json`). The frequency work is
+reported as an interpretability appendix that characterises SD-1.4's
+spectral fingerprint, not as a competitive classifier.
 
 Adding a frequency variant to the ensemble **hurts** rather than helps
 (measured directly via leave-one-out — see `fig_ensemble_final.png`). The

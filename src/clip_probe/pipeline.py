@@ -53,8 +53,12 @@ except (ImportError, ValueError):
 # Defaults: encoder choice + cache locations
 # --------------------------------------------------------------------------- #
 ENCODERS = {
-    "vit_b32_laion":  ("ViT-B-32",           "laion2b_s34b_b79k"),  # final
-    "vit_b32_openai": ("ViT-B-32-quickgelu", "openai"),             # baseline reference
+    # Final model used for every reported metric in this repo. LAION-2B
+    # pretraining gives ~1.7 pp OOD lift over the OpenAI baseline below.
+    "vit_b32_laion":  ("ViT-B-32",           "laion2b_s34b_b79k"),
+    # Kept as the Ojha 2023 baseline so the capacity-ladder ablation
+    # (`04_clip_capacity_ladder.png`) is reproducible end-to-end.
+    "vit_b32_openai": ("ViT-B-32-quickgelu", "openai"),
 }
 DEFAULT_TAG = "vit_b32_laion"
 BATCH = 128
