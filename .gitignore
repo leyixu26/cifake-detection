@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+.metadata_never_index
+.vscode/
+.idea/
+
+# Logs
+*.log
+results/_logs/
+
+# Data — acquire separately (see data/README.md)
+data/cifake/
+data/archive/
+
+# Caches that are regenerable from code
+src/clip_probe/embeds/
+*.npy
+*.npz
+
+# Per-sample robust JSON records (huge, regenerable via scripts/evaluate.py)
+results/per_model/*/robust_*.json
+
+# Virtual envs
+.venv/
+venv/
+env/

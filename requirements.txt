@@ -1,0 +1,31 @@
+# Core ML stack
+torch>=2.0
+torchvision>=0.15
+timm>=0.9                  # Alex's ViT-Small
+open_clip_torch>=2.20      # Leyi's CLIP probe
+
+# Sklearn / data
+scikit-learn>=1.3
+scipy>=1.10
+numpy>=1.24
+pandas>=2.0
+
+# Imaging
+pillow>=10.0
+
+# Plotting + notebooks
+matplotlib>=3.7
+seaborn>=0.12              # optional, used in a few plots
+jupyter>=1.0
+nbformat>=5.9
+nbconvert>=7.0
+
+# Diffusers (only needed for regenerating the sd-turbo OOD set — scripts/generate_ood.py)
+diffusers>=0.20
+transformers>=4.30
+accelerate>=0.20
+safetensors>=0.3
+
+# Misc
+tqdm>=4.65
+joblib>=1.3
