@@ -5,7 +5,7 @@ Owner: Yin · Architecture: 3 VGG-style ConvBlocks + GAP + Linear → 288 k para
 ## Status
 
 **INTEGRATED & REPRODUCED.** Yin's `best_cnn.pt` checkpoint is in place and
-the shared harness reproduces his original training metrics:
+the shared harness reproduces her original training metrics:
 
 | Metric | Yin's original (`results_CNN_from_scratch.json`) | Repo (`scripts/evaluate.py`) | Match |
 |---|---:|---:|---|

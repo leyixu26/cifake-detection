@@ -1,12 +1,21 @@
-# Yin from-scratch CNN — results pending
+# Yin from-scratch CNN — sealed-harness results
 
-The checkpoint `models/cnn_baseline_yin/best_cnn.pt` is not yet on disk
-(see that folder's README). Once Yin sends it, run:
+Headline metrics under the shared evaluation harness:
 
-    python scripts/evaluate.py --model cnn_baseline_yin
+| split | n | AUROC | accuracy | F1 |
+|---|---:|---:|---:|---:|
+| val          | 10 000 | 0.9991 | 0.9870 | 0.9870 |
+| test         | 20 000 | 0.9974 | 0.9762 | 0.9763 |
+| ood_sdturbo  |  2 000 | 0.9429 | 0.8120 | 0.7767 |
 
-That will write `test.json`, `val.json`, `ood_sdturbo.json`, and 19
-`robust_*.json` records here.
+The test AUROC matches Yin's original `results_CNN_from_scratch.json`
+(her own notebook output, included here as `training_report_yin.json` for
+reference) to four decimal places. The OOD column is a new measurement
+under the shared harness; her original report was in-distribution only.
 
-Yin's *reported* clean-test AUROC from his own notebook is **0.9974**
-(see `notebooks/01_cnn_baseline.ipynb`).
+To reproduce these JSONs end-to-end (also writes 19 `robust_*.json` files
+that are gitignored):
+
+```
+PYTHONPATH=. python scripts/evaluate.py --model cnn_baseline_yin
+```

@@ -103,9 +103,9 @@ The 2-model average:
 - **Best 3-model OOD:** **Yin CNN + Alex ViT + CLIP probe (OOD AUROC 0.9670)** — beats the best pair by +0.13 pp via Yin's positive leave-one-out contribution
 - **All-4-ensemble** (Yin + Nathan + Alex + CLIP): test 0.9994 / OOD 0.9655
 
-Yin's CNN was fully integrated through the shared harness — his test
-0.9974 reproduces his original `results_CNN_from_scratch.json` to 4
-decimal places, and his cross-generator OOD (newly measured) = 0.9429 — a
+Yin's CNN was fully integrated through the shared harness — her test
+0.9974 reproduces her original `results_CNN_from_scratch.json` to 4
+decimal places, and her cross-generator OOD (newly measured) = 0.9429 — a
 −5.5 pp drop that is *smaller* than Nathan's ImageNet-warm-started ResNet
 (−6.4 pp).
 

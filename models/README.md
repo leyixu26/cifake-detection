@@ -35,10 +35,10 @@ the model is loaded lazily on first call and cached in a module-level global.
 | `vit_small_alex/`    | Alex   | timm `vit_small_patch16_224` (pretrained, full fine-tune) | 21.7 M | `best_vit.pt` (87 MB) |
 | `clip_probe_leyi/`   | Leyi   | OpenCLIP ViT-B/32-LAION-2B (FROZEN) + MLP head (256, dropout 0.3) | 132 k probe (151 M frozen) | `best_mlp.pt` (516 KB) |
 
-**`models/cnn_baseline_yin/best_cnn.pt` is currently missing** — Yin's
-overnight re-train failed under CPU contention. Drop his checkpoint into
-this directory and `python scripts/evaluate.py --model cnn_baseline_yin`
-will pick it up.
+**`models/cnn_baseline_yin/best_cnn.pt`** — Yin's from-scratch CNN
+checkpoint, integrated and reproducing her reported metrics to four
+decimal places. See `models/cnn_baseline_yin/README.md` for the
+reproduction recipe.
 
 `models/clip_probe_leyi/` has only the trained head; the encoder is loaded
 on demand from OpenCLIP. The inference pipeline lives at

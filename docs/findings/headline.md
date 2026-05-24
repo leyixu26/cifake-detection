@@ -28,7 +28,7 @@
 | 4 | Frequency detector (mag. SpectrumCNN) | Leyi   | 0.9435 | 0.8150 | −12.8 pp | 222 k |
 | 5 | CLIP probe (LAION ViT-B/32 + MLP head) | Leyi   | **0.9968** | **0.9485** | −4.9 pp | 132 k (probe only; 151 M frozen) |
 
-All five models were evaluated through the *same* shared harness (`src/eval_harness.evaluate(...)`), same frozen 90/10 split (seed 42), same val-derived Youden-J threshold, same sealed test (n=20 000) and same OOD set (n=2 000). Yin's number reproduces his original `results_CNN_from_scratch.json` to four decimal places.
+All five models were evaluated through the *same* shared harness (`src/eval_harness.evaluate(...)`), same frozen 90/10 split (seed 42), same val-derived Youden-J threshold, same sealed test (n=20 000) and same OOD set (n=2 000). Yin's number reproduces her original `results_CNN_from_scratch.json` to four decimal places.
 
 ## Team ensemble (4 spatial models with cached per-sample scores)
 

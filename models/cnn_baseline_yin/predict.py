@@ -1,6 +1,6 @@
 """Yin's from-scratch SimpleCNN inference wrapper.
 
-Architecture and preprocessing copied verbatim from his cnn_baseline.ipynb so the
+Architecture and preprocessing copied verbatim from her cnn_baseline.ipynb so the
 predict function is fully self-contained (no notebook scope dependencies).
 
 * Input: 32x32 native resolution, no resize

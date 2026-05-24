@@ -23,9 +23,9 @@ sd-turbo, and a **19-perturbation robustness battery**. We then build a
 | - | **Best 3-model ensemble (Yin CNN + Alex ViT + CLIP) on OOD** | — | **0.9994** | **0.9670** | — | — |
 
 All five models were evaluated through the same shared harness — Yin's
-0.9974 reproduces his original `results_CNN_from_scratch.json` to four
+0.9974 reproduces her original `results_CNN_from_scratch.json` to four
 decimal places. The cross-generator OOD column is a new finding for
-Yin's model (his original report was in-distribution only); his
+Yin's model (her original report was in-distribution only); her
 from-scratch CNN drops *less* than Nathan's ImageNet ResNet under
 cross-generator stress.
 
@@ -82,7 +82,7 @@ PYTHONPATH=. python scripts/generate_figures.py
 **Model 1 (Yin) — small CNN from scratch.** 3 VGG-style ConvBlocks → GAP →
 Linear, 288 k parameters, trained end-to-end on CIFAKE. Tests "what can you
 learn purely from CIFAKE without any prior?". Achieves 0.9974 test AUROC
-in-distribution (matches his original training report exactly), 0.9429
+in-distribution (matches her original training report exactly), 0.9429
 cross-generator OOD — drops only −5.5 pp under sd-turbo, less than Nathan's
 ImageNet-warm-started ResNet (−6.4 pp). Notebook: `01_cnn_baseline.ipynb`.
 
@@ -159,7 +159,7 @@ beyond CIFAKE itself.
 All five models are integrated and reproducible end-to-end:
 
 - `cnn_baseline_yin/best_cnn.pt` — Yin's `SimpleCNN` (288 k params).
-  Reproduces his 0.9974 test AUROC to four decimal places. **New**:
+  Reproduces her 0.9974 test AUROC to four decimal places. **New**:
   cross-generator OOD AUROC = 0.9429 (smaller drop than Nathan's
   ImageNet ResNet).
 - `resnet18_nathan/best_resnet18.pth` — Nathan's ResNet-18 (45 MB).
