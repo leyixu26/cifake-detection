@@ -131,16 +131,14 @@ beyond CIFAKE itself.
 
 | Doc | What it's for |
 |---|---|
-| [`docs/findings/headline.md`](docs/findings/headline.md) | One-page summary of 5-model + ensemble findings — read this first |
-| [`docs/REPORT_HEADLINE.md`](docs/REPORT_HEADLINE.md) | Longer report cribsheet for the team write-up |
-| [`docs/STUDY_GUIDE_CLIP.md`](docs/STUDY_GUIDE_CLIP.md) | CLIP background for teammates who haven't worked with it |
-| [`docs/LITERATURE.md`](docs/LITERATURE.md) | Citations: Ojha 2023 (CLIP), Wang 2020 (cross-generator), Durall 2020 (spectral), Corvi 2023 (diffusion fingerprints) |
-| [`docs/methodology/shared_harness.md`](docs/methodology/shared_harness.md) | Why we built a shared eval harness + JSON schema |
-| [`docs/methodology/ood_methodology.md`](docs/methodology/ood_methodology.md) | The cross-generator OOD design + JPEG-quant-table confound control |
-| [`docs/methodology/frequency_detector.md`](docs/methodology/frequency_detector.md) | Spectral-fingerprint narrative + Variant A/B design |
-| [`docs/findings/freq_detector.md`](docs/findings/freq_detector.md) | Full frequency-detector findings (ablations + interpretability) |
-| [`docs/findings/clip_probe.md`](docs/findings/clip_probe.md) | Full CLIP probe findings (capacity ladder + ensemble) |
-| [`models/README.md`](models/README.md) | The `predict.py` contract |
+| [`docs/findings/headline.md`](docs/findings/headline.md) | One-page summary of the 5-model + ensemble results |
+| [`docs/findings/clip_probe.md`](docs/findings/clip_probe.md) | CLIP probe results (capacity ladder, ensemble) |
+| [`docs/findings/freq_detector.md`](docs/findings/freq_detector.md) | Frequency detector results (ablations, interpretability) |
+| [`docs/methodology/shared_harness.md`](docs/methodology/shared_harness.md) | Shared evaluation harness + JSON schema |
+| [`docs/methodology/ood_methodology.md`](docs/methodology/ood_methodology.md) | Cross-generator OOD design + JPEG-quant-table control |
+| [`docs/methodology/frequency_detector.md`](docs/methodology/frequency_detector.md) | Spectral-fingerprint approach + Variant A/B design |
+| [`docs/LITERATURE.md`](docs/LITERATURE.md) | Reference list (Ojha 2023, Wang 2020, Frank 2020, Corvi 2023, ...) |
+| [`models/README.md`](models/README.md) | `predict.py` contract |
 | [`scripts/README.md`](scripts/README.md) | Run order + reproduction recipe |
 
 ## Reproducibility

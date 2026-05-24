@@ -1,7 +1,5 @@
 # Methodology — Cross-Generator OOD Evaluation
 
-(Extracted from the original `STUDY_GUIDE_CLIP.md` Section 5.)
-
 ## What "OOD" means here, specifically
 
 OOD = out-of-distribution. For **AI-image detection** the OOD that matters

@@ -72,4 +72,4 @@ The Yin + Alex + CLIP triple is the *empirical* best subset on cross-generator O
 - `scripts/evaluate.py` — generic re-evaluator (`--model <name>`)
 - `results/per_model/*` — headline JSONs (test/val/ood); `results/team_ensemble_report.json` — ensemble
 - `results/figures/` — 12 curated PNGs
-- `docs/REPORT_HEADLINE.md` — extended cribsheet for the report; `docs/findings/*.md` — per-model deep dives; `docs/methodology/*.md` — design rationale
+- `docs/findings/*.md` — per-model results; `docs/methodology/*.md` — protocol details; `docs/LITERATURE.md` — citations
