@@ -131,12 +131,14 @@ beyond CIFAKE itself.
 
 | Doc | What it's for |
 |---|---|
-| [`docs/findings/headline.md`](docs/findings/headline.md) | One-page summary of the 5-model + ensemble results |
+| [`docs/findings/headline.md`](docs/findings/headline.md) | One-page summary of the 5-model + ensemble results + learnings |
 | [`docs/findings/clip_probe.md`](docs/findings/clip_probe.md) | CLIP probe results (capacity ladder, ensemble) |
 | [`docs/findings/freq_detector.md`](docs/findings/freq_detector.md) | Frequency detector results (ablations, interpretability) |
 | [`docs/methodology/shared_harness.md`](docs/methodology/shared_harness.md) | Shared evaluation harness + JSON schema |
 | [`docs/methodology/ood_methodology.md`](docs/methodology/ood_methodology.md) | Cross-generator OOD design + JPEG-quant-table control |
 | [`docs/methodology/frequency_detector.md`](docs/methodology/frequency_detector.md) | Spectral-fingerprint approach + Variant A/B design |
+| [`docs/methodology/training_choices.md`](docs/methodology/training_choices.md) | Per-model regularization + overfit/underfit checks + selection rationale |
+| [`docs/FUTURE_WORK.md`](docs/FUTURE_WORK.md) | Next-round roadmap (multi-generator OOD, adversarial robustness, higher resolution, foundation-model alternatives) |
 | [`docs/LITERATURE.md`](docs/LITERATURE.md) | Reference list (Ojha 2023, Wang 2020, Frank 2020, Corvi 2023, ...) |
 | [`models/README.md`](models/README.md) | `predict.py` contract |
 | [`scripts/README.md`](scripts/README.md) | Run order + reproduction recipe |

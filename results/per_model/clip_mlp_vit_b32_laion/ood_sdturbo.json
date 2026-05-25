@@ -12,7 +12,8 @@
     "auroc": 0.948454,
     "f1": 0.7789095266626722,
     "precision": 0.9715994020926756,
-    "recall": 0.65
+    "recall": 0.65,
+    "pr_auc": 0.951249
   },
   "confusion": {
     "tn": 981,
@@ -849,5 +850,8 @@
       "torch": "2.11.0",
       "sklearn": "1.8.0"
     }
-  }
+  },
+  "gflops": 4.3679,
+  "gflops_note": "Frozen ViT-B/32 (LAION) + MLP head at 3x224x224 (fvcore).",
+  "_added_by": "scripts/compute_pr_auc_and_gflops.py"
 }

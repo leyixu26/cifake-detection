@@ -12,7 +12,8 @@
     "auroc": 0.943514725,
     "f1": 0.8735847198976076,
     "precision": 0.8602869885592399,
-    "recall": 0.8873
+    "recall": 0.8873,
+    "pr_auc": 0.942899
   },
   "confusion": {
     "tn": 8559,
@@ -844,5 +845,8 @@
       "torch": "2.11.0",
       "sklearn": "1.8.0"
     }
-  }
+  },
+  "gflops": 0.0867,
+  "gflops_note": "Variant B SpectrumCNN forward at 3x32x32 (fvcore)",
+  "_added_by": "scripts/compute_pr_auc_and_gflops.py"
 }

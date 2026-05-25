@@ -12,7 +12,8 @@
     "auroc": 0.9968060000000001,
     "f1": 0.974005198960208,
     "precision": 0.9738104758096762,
-    "recall": 0.9742
+    "recall": 0.9742,
+    "pr_auc": 0.99686
   },
   "confusion": {
     "tn": 9738,
@@ -849,5 +850,8 @@
       "torch": "2.11.0",
       "sklearn": "1.8.0"
     }
-  }
+  },
+  "gflops": 4.3679,
+  "gflops_note": "Frozen ViT-B/32 (LAION) + MLP head at 3x224x224 (fvcore). Encoder is frozen at training time but still counted at inference for apples-to-apples comparison with the other rows in the comparison table.",
+  "_added_by": "scripts/compute_pr_auc_and_gflops.py"
 }

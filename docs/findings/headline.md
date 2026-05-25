@@ -51,6 +51,37 @@ We average class probabilities across diverse inductive biases. The frequency de
 
 The Yin + Alex + CLIP triple is the *empirical* best subset on cross-generator OOD: it edges out the Alex + CLIP pair by +0.13 pp while matching the all-4 ensemble on test (0.9994).
 
+**Selection rationale.** The final recommended solution is the
+Yin + Alex + CLIP triple. It trades 0.0020 test AUROC vs. the best single
+model (Alex ViT at 0.9994 test) for +0.17 pp better cross-generator OOD
+robustness via leave-one-out — i.e., the ensemble is preferred only when
+OOD robustness matters; the single ViT is preferred for in-distribution
+deployment.
+
+## Learnings from the methodology
+
+The four things this project taught us about AI-image detection at 32×32:
+
+1. **In-distribution AUROC is uninformative on its own.** All four spatial
+   models cleared 0.997 test AUROC — a 0.6 pp spread — yet the OOD spread
+   between them was 10 pp. Benchmark numbers without a distribution-shift
+   test do not separate architectures.
+2. **Inductive bias predicts OOD robustness more than parameter count.** The
+   288 k from-scratch CNN drops 0.9 pp less under cross-generator shift
+   than the 11.2 M ImageNet-pretrained ResNet (n = 2 000, no significance
+   test). The 132 k frozen-encoder probe sits in between. Bigger is not
+   automatically more robust.
+3. **Web-scale multimodal pretraining transfers to a binary 32×32 problem.**
+   The CLIP probe — encoder frozen, 132 k trained params, image bicubic-
+   upsampled from 32 to 224 — matches the from-scratch CNN within 0.0006
+   AUROC on the sealed test and surpasses the ImageNet ResNet by 1.4 pp
+   on OOD. The largest single OOD lift in the capacity ladder is the
+   pretraining-data swap (OpenAI → LAION-2B, +1.7 pp OOD; same architecture).
+4. **Spectral and spatial models commit different errors.** The CLIP probe
+   and the spatial CNN baseline disagree on 4.4 % of the sealed test set
+   — that is the empirical headroom that lets ensembling work. Models that
+   "agree but for different reasons" are what makes the ensemble lift real.
+
 ## Methodology highlights (controlled comparison)
 
 - **Same harness:** every model goes through `src/eval_harness.evaluate(...)` with the same metrics + JSON schema. Test threshold = val-derived Youden-J. Sealed test touched once per model.
